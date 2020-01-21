@@ -15,9 +15,7 @@ class Upload extends React.Component {
 
   onFormSubmit(e){
     e.preventDefault() // Stop form submit
-    this.fileUpload(this.state.source_file).then((response)=>{
-      console.log(response.data);
-    })
+    this.fileUpload(this.state.source_file);
   }
 
   onChange(e) {
@@ -33,7 +31,11 @@ class Upload extends React.Component {
             'content-type': 'multipart/form-data'
         }
     }
-    return post(url, formData, config)
+    post(url, formData, config).then(res => {
+      window.location.reload();
+    }, err => {
+      alert('Please attach File')
+    } )
   }
 
   render() {
